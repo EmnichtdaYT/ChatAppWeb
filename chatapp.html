@@ -36,14 +36,16 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
         integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-    <!--Login style-->
-    <link rel="stylesheet" type="text/css" href="/assets/styles/login.css">
+
+    <!--App style-->
+    <link rel="stylesheet" type="text/css" href="/assets/styles/chatapp.css">
 
 
     <title>EasyChat</title>
 
     <meta property="og:description" content="EasyChat - Einfacher anonymer online chat, no email required" />
-    <meta name="keywords" content="emnichtda, emnichtdayt, chat, easy, easychat, anonymous, anonym, online, no, email, E-Mail">
+    <meta name="keywords"
+        content="emnichtda, emnichtdayt, chat, easy, easychat, anonymous, anonym, online, no, email, E-Mail">
     <meta property="og:title" content="EasyChat - Login" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://easychat.emnichtda.de/" />
@@ -84,35 +86,29 @@
             <div class="overlay"></div>
             <div id="particles-js"></div>
             <div id="page-wrapper" class="page-wrapper">
-                <div class="d-flex justify-content-center h-100">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Sign In</h3>
+                <div class="row">
+                    <div class="col" style="max-width: 20rem;">
+                        <div class="card text-white bg-dark" style="max-width: 20rem; margin-top: 100px;">
+                            <ul class="list-group text-white bg-dark list-group-flush">
+                                <li class="list-group-item text-white bg-dark">emnichtda</li>
+                                <li class="list-group-item text-white bg-dark">someonefamous</li>
+                                <li class="list-group-item text-white bg-dark">emnichtdayt</li>
+                            </ul>
                         </div>
-                        <div class="card-body">
-                            <form onsubmit="return false">
-                                <div class="input-group form-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-user"></i></span>
+                    </div>
+                    <div class="col vh-100">
+                        <div class="vh-100 card text-white bg-dark" style="margin-top: 100px;">
+                            <div class="card-body">
+                                <h5 class="card-title">emnichtda</h5>
+                                <hr>
+                                <form onsubmit="return false">
+                                    <div class="input-group form-group">
+                                        <input type="text" id="in_user" class="form-control" placeholder="username">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fa-solid fa-paper-plane"></i></span>
+                                        </div>
                                     </div>
-                                    <input type="text" id="in_user" class="form-control" placeholder="username">
-
-                                </div>
-                                
-                                <div class="input-group form-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-key"></i></span>
-                                    </div>
-                                    <input type="password" id="in_pass" class="form-control" placeholder="password">
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" value="Login" id="btn_login" class="btn float-right login_btn">
-                                </div>
-                            </form>
-                        </div>
-                        <div class="card-footer">
-                            <div class="d-flex justify-content-center links">
-                                Don't have an account?<a href="#">Sign Up</a>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -149,8 +145,10 @@
 <script type="text/javascript" src="/assets/external/js/particles_1.js"></script>
 <script type="text/javascript" src="/assets/external/js/script.js"></script>
 
-<!-- login script -->
-<script src="/assets/scripts/login.js"></script>
+
+
+<!-- App script -->
+<script src="/assets/scripts/chatapp.js"></script>
 
 
 </html>

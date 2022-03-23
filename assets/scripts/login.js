@@ -13,8 +13,14 @@ $(document).ready(function () {
             if(tokenCorrect){
                 window.location.href = "/chatapp.html";
             }
+        }else if(this.readyState == 4){
+            alert("API returned code " + this.status)
         }
     };
+
+    request.onerror = function(){
+        alert("Error while connecting to API")
+    }
 
     request.send();
 });
@@ -34,8 +40,14 @@ function login(user, pass) {
                 setCookie("token", token, 100)
                 window.location.href = "/chatapp.html"
             }
+        }else if(this.readyState == 4){
+            alert("API returned code " + this.status)
         }
     };
+
+    request.onerror = function(){
+        alert("Error while connecting to API")
+    }
 
     request.send(JSON.stringify({ user: user, pass: pass }));
 }

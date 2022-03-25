@@ -9,17 +9,22 @@ $(document).ready(function () {
 
     request.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            var tokenCorrect = JSON.parse(request.response).tokenCorrect;
-            if(tokenCorrect){
+            var parsedResponse = JSON.parse(request.response);
+            var tokenCorrect = parsedResponse.tokenCorrect;
+            var tokenUsername = parsedResponse.user;
+            if (tokenCorrect && tokenUsername === getCookie("user")) {
                 window.location.href = "/chatapp.html";
+            }else{
+                setCookie("token", null, -1)
+                setCookie("user", null, -1)
             }
-        }else if(this.readyState == 4){
-            alert("API returned code " + this.status)
+        } else if (this.readyState == 4) {
+            $("#apiErrors").html("The API might be down or unreachable.")
         }
     };
 
-    request.onerror = function(){
-        alert("Error while connecting to API")
+    request.onerror = function () {
+        $("#apiErrors").html("The API might be down or unreachable.")
     }
 
     request.send();
@@ -34,18 +39,19 @@ function login(user, pass) {
         if (this.readyState == 4 && this.status == 200) {
             var token = JSON.parse(request.response).token;
             console.log(token)
-            if(token==null){
+            if (token == null) {
                 alert("Invalid username or password")
-            }else{
+            } else {
                 setCookie("token", token, 100)
+                setCookie("user", user, 100)
                 window.location.href = "/chatapp.html"
             }
-        }else if(this.readyState == 4){
+        } else if (this.readyState == 4) {
             alert("API returned code " + this.status)
         }
     };
 
-    request.onerror = function(){
+    request.onerror = function () {
         alert("Error while connecting to API")
     }
 
@@ -64,7 +70,7 @@ function setCookie(cName, cValue, expDays) {
 function getCookie(cName) {
     const name = cName + "=";
     const cDecoded = decodeURIComponent(document.cookie); //to be careful
-    const cArr = cDecoded .split('; ');
+    const cArr = cDecoded.split('; ');
     let res;
     cArr.forEach(val => {
         if (val.indexOf(name) === 0) res = val.substring(name.length);

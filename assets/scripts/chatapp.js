@@ -2,7 +2,7 @@ $(document).ready(function () {
     var token = getCookie("token")
 
     var request = new XMLHttpRequest();
-    request.open("GET", "http://roleplay.emnichtda.de:3000/" + token, true);
+    request.open("GET", "http://127.0.0.1:3000/" + token, true);
     request.setRequestHeader("Content-type", "application/JSON")
 
     request.onreadystatechange = function () {
@@ -28,3 +28,10 @@ function getCookie(cName) {
     })
     return res;
 }
+
+$('.chat-input input').keyup(function(e) {
+	if ($(this).val() == '')
+		$(this).removeAttr('good');
+	else
+		$(this).attr('good', '');
+});

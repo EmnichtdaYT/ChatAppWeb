@@ -4,7 +4,7 @@ $(document).ready(function () {
     var token = getCookie("token")
 
     var request = new XMLHttpRequest();
-    request.open("GET", "http://roleplay.emnichtda.de:3000/" + token, true);
+    request.open("GET", "http://127.0.0.1:3000/" + token, true);
     request.setRequestHeader("Content-type", "application/JSON")
 
     request.onreadystatechange = function () {
@@ -27,7 +27,7 @@ $(document).ready(function () {
 
 function login(user, pass) {
     var request = new XMLHttpRequest();
-    request.open("POST", "http://roleplay.emnichtda.de:3000/login", true);
+    request.open("POST", "http://127.0.0.1:3000/login", true);
     request.setRequestHeader("Content-type", "application/JSON")
 
     request.onreadystatechange = function () {

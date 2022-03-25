@@ -11,6 +11,8 @@ $(document).ready(function () {
             var tokenCorrect = jsonResponse.tokenCorrect;
             if (!tokenCorrect || jsonResponse.user != getCookie("user")) {
                 window.location.href = "/";
+            }else{
+                initChatlist(jsonResponse)
             }
         }else if(this.readyState == 4){
             alert("API returned code " + this.status)
@@ -55,4 +57,28 @@ function logout(){
     setCookie("token", null, -1)
     setCookie("user", null, -1)
     window.location.href = "/"
+}
+
+function initChatlist(json){
+    var firstchat = null;
+    for(chat in json.chats){
+        if(firstchat == null){
+            firstchat = chat;
+        }
+        var users = json.chats[chat] + ""
+        users = users.replaceAll(",", ", ")
+        $("#chatlist").append('<li class="chatslistitem list-group-item text-white bg-dark" id="' + chat + '">' + users + '</li>');
+    }
+    
+    selectChat(firstchat + "");
+}
+
+var selectedChat = null;
+
+function selectChat(chat){
+    if(selectedChat != null){
+        $("#" + selectedChat).removeClass('selectedchat')
+    }
+    selectChat = chat;
+    $("#" + chat).addClass('selectedchat');
 }

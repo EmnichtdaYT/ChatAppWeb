@@ -128,3 +128,7 @@ html,body{
 .msg-self .timestamp {
     text-align: right;
 }
+
+.selectedchat{
+    background: #2671ff !important;
+}

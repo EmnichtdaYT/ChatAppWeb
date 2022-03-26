@@ -67,7 +67,7 @@ function initChatlist(json){
         }
         var users = json.chats[chat] + ""
         users = users.replaceAll(",", ", ")
-        $("#chatlist").append('<li class="chatslistitem list-group-item text-white bg-dark" id="' + chat + '">' + users + '</li>');
+        $("#chatlist").append('<li onClick="selectChat(this.id)" class="chatslistitem list-group-item text-white bg-dark" id="' + chat + '">' + users + '</li>');
     }
     
     selectChat(firstchat + "");
@@ -79,6 +79,6 @@ function selectChat(chat){
     if(selectedChat != null){
         $("#" + selectedChat).removeClass('selectedchat')
     }
-    selectChat = chat;
+    selectedChat = chat;
     $("#" + chat).addClass('selectedchat');
 }

@@ -87,7 +87,7 @@
                 <div class="d-flex justify-content-center h-100">
                     <div class="card">
                         <div class="card-header">
-                            <h3>Sign In</h3>
+                            <h3>Sign Up</h3>
                         </div>
                         <div class="card-body">
                             <form onsubmit="return false">
@@ -105,15 +105,22 @@
                                     </div>
                                     <input type="password" id="in_pass" class="form-control" placeholder="password">
                                 </div>
+
+                                <div class="input-group form-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                    </div>
+                                    <input type="password" id="in_pass_repeat" class="form-control" placeholder="repeat password">
+                                </div>
                                 <div class="form-group">
-                                    <input type="submit" value="Login" id="btn_login" class="btn float-right login_btn">
+                                    <input type="submit" value="Register" id="btn_register" class="btn float-right login_btn">
                                 </div>
                                 <p id="apiErrors" class="text-danger"><!-- Js inserts error message here if api connection fails --></p>
                             </form>
                         </div>
                         <div class="card-footer">
                             <div class="d-flex justify-content-center links">
-                                Don't have an account?<a href="/register.html">Sign Up</a>
+                                Already have an account?<a href="/">Sign In</a>
                             </div>
                         </div>
                     </div>
@@ -151,7 +158,7 @@
 <script type="text/javascript" src="/assets/external/js/script.js"></script>
 
 <!-- login script -->
-<script src="/assets/scripts/login.js"></script>
+<script src="/assets/scripts/register.js"></script>
 
 
 </html>

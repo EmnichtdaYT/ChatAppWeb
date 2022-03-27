@@ -81,4 +81,6 @@ function selectChat(chat){
     }
     selectedChat = chat;
     $("#" + chat).addClass('selectedchat');
+
+    
 }

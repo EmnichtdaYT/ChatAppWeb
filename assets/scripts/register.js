@@ -1,10 +1,11 @@
+var apiAddress = "http://45.146.252.58:3000/"
 $(document).ready(function () {
     $("#btn_register").click(function () { register($("#in_user").val(), $("#in_pass").val(), $("#in_pass_repeat").val()) })
 
     var token = getCookie("token")
 
     var request = new XMLHttpRequest();
-    request.open("GET", "http://127.0.0.1:3000/" + token, true);
+    request.open("GET", apiAddress + token, true);
     request.setRequestHeader("Content-type", "application/JSON")
 
     request.onreadystatechange = function () {
@@ -32,7 +33,7 @@ $(document).ready(function () {
 
 function login(user, pass) {
     var request = new XMLHttpRequest();
-    request.open("POST", "http://127.0.0.1:3000/login", true);
+    request.open("POST", apiAddress + "login", true);
     request.setRequestHeader("Content-type", "application/JSON")
 
     request.onreadystatechange = function () {
@@ -92,7 +93,7 @@ function register(user, pass, passrepeat){
     }
 
     var request = new XMLHttpRequest();
-    request.open("POST", "http://127.0.0.1:3000/register", true);
+    request.open("POST", apiAddress + "register", true);
     request.setRequestHeader("Content-type", "application/JSON")
 
     request.onreadystatechange = function () {

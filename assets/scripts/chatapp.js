@@ -69,6 +69,7 @@ function logout() {
 
 function initChatlist(json) {
     var firstchat = null;
+    if(!json.chats.isArray()) return;
     for (chat in json.chats) {
         if (firstchat == null) {
             firstchat = chat;

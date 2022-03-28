@@ -1,4 +1,4 @@
-var apiAddress = "https://45.146.252.58:3000/"
+var apiAddress = "https://easychat.emnichtda.de:3000/"
 $(document).ready(function () {
     $("#btn_register").click(function () { register($("#in_user").val(), $("#in_pass").val(), $("#in_pass_repeat").val()) })
 

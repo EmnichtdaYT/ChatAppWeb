@@ -1,4 +1,4 @@
-var apiAddress = "http://45.146.252.58:3000/"
+var apiAddress = "https://45.146.252.58:3000/"
 var token = getCookie("token")
 init();
 function init() {

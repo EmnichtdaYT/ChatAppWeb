@@ -1,4 +1,4 @@
-var apiAddress = "http://45.146.252.58:3000/"
+var apiAddress = "https://45.146.252.58:3000/"
 $(document).ready(function () {
     $("#btn_login").click(function () { login($("#in_user").val(), $("#in_pass").val()) })
 

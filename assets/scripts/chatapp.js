@@ -1,4 +1,4 @@
-var apiAddress = "https://easychat.emnichtda.de:3000/"
+var apiAddress = "https://easychatapi.emnichtda.de:3000/"
 var token = getCookie("token")
 init();
 function init() {

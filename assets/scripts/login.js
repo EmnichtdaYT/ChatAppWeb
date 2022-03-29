@@ -41,7 +41,7 @@ function login(user, pass) {
             var token = JSON.parse(request.response).token;
             console.log(token)
             if (token == null) {
-                alert("Invalid username or password")
+                $("#apiErrors").html("Invalid username or password")
             } else {
                 setCookie("token", token, 100)
                 setCookie("user", user, 100)

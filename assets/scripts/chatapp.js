@@ -118,7 +118,7 @@ function loadChatContent(chatid) {
                 return
             }
 
-            displayChatContent(jsonResponse.messages, chatid)
+            displayChatContent(jsonResponse.messages.reverse(), chatid)
 
         } else if (this.readyState == 4) {
             alert("API returned code " + this.status)

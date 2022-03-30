@@ -91,8 +91,9 @@
                         <div class="vh-100 chatbox card text-white bg-dark"
                             style="max-width: 20rem; margin-top: 100px;">
                             <form class="chat-input" onsubmit="return false;">
-                                <input type="text" autocomplete="on" placeholder="Type a username" />
-                                <button>
+                                <input type="text" id="in_addchat_usernames" autocomplete="on"
+                                    placeholder="Type a username" />
+                                <button id="btn_addchat">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                         class="bi bi-person-plus" viewBox="0 0 16 16">
                                         <path
@@ -102,6 +103,9 @@
                                     </svg>
                                 </button>
                             </form>
+                            <div id="tempaddchat">
+                                <!-- JavaScript uses this for the create chat menu -->
+                            </div>
                             <ul id="chatlist" class="list-group text-white bg-dark list-group-flush">
                                 <!-- Javascript inserts chatnames here -->
                             </ul>
@@ -112,7 +116,7 @@
                             <section class="chat-window" id="chatcontent" style="margin-top: 100px;">
                                 <!-- JavaScript inserts chatmessages here -->
                             </section>
-                            <form class="chat-input" onsubmit="return false;">
+                            <form id="sendmessageform" class="chat-input" onsubmit="return false;">
                                 <input type="text" id="in_message" autocomplete="on" placeholder="Type a message" />
                                 <button id="btn_send_message">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

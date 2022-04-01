@@ -35,7 +35,7 @@ function init() {
         sendMessage($("#in_message").val(), selectedChat);
     })
 
-    $('#btn_addchat').click(function() {
+    $('#btn_addchat').click(function () {
         addToNewChat($('#in_addchat_usernames').val());
         $('#in_addchat_usernames').val("");
         $('#in_addchat_usernames').removeAttr('good');
@@ -44,11 +44,11 @@ function init() {
 
 var addToChatUsernames = [];
 
-function addToNewChat(username){
-    if(username.length<1){
+function addToNewChat(username) {
+    if (username.length < 1) {
         return;
     }
-    if($("#tempaddchat").children().length < 1){
+    if ($("#tempaddchat").children().length < 1) {
         $("#tempaddchat").html('<form class="chat-input" style="border-top: none !important;" onsubmit="return false;"> <input type="text" id="tempaddchatuserlist" autocomplete="on" good="" disabled />  <button id="btn_createchat">  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right-square" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/> </svg> </form> </button> ');
         $("#btn_createchat").click(function () {
             $("#tempaddchat").html("");
@@ -56,16 +56,16 @@ function addToNewChat(username){
             addToChatUsernames = [];
         })
     }
-    if($('#tempaddchatuserlist').val().length==0){
+    if ($('#tempaddchatuserlist').val().length == 0) {
         $("#tempaddchatuserlist").val(username);
-    }else{
+    } else {
         $("#tempaddchatuserlist").val($("#tempaddchatuserlist").val() + ", " + username);
     }
     addToChatUsernames.push(username);
 }
 
-function createNewChat(usernames){
-    
+function createNewChat(usernames) {
+
     var request = new XMLHttpRequest();
     request.open("POST", apiAddress + token, true);
     request.setRequestHeader("Content-type", "application/JSON")
@@ -83,11 +83,11 @@ function createNewChat(usernames){
                 return;
             }
 
-            if(message){
+            if (message) {
                 alert(message)
             }
 
-            if(chatid){
+            if (chatid) {
                 $("#chatlist").append('<li onClick="selectChat(this.id)" class="chatslistitem list-group-item text-white bg-dark" id="' + chatid + '">' + users + '</li>');
             }
 
@@ -149,7 +149,7 @@ function initChatlist(json) {
         $("#chatlist").append('<li onClick="selectChat(this.id)" class="chatslistitem list-group-item text-white bg-dark" id="' + chat + '">' + users + '</li>');
     }
 
-    if(firstchat==null||selectedChat!=null){
+    if (firstchat == null || selectedChat != null) {
         return;
     }
 
@@ -207,10 +207,12 @@ function loadChatContent(chatid) {
 
 function displayChatContent(messagesJson, chatid) {
     $("#chatcontent").html("")
-    for (message in messagesJson) {
-        displayMessageByContent(messagesJson[message], chatid)
+    if (messagesJson.length > 0) {
+        for (message in messagesJson) {
+            displayMessageByContent(messagesJson[message], chatid)
+        }
+        scrollToMessageId(messagesJson[messagesJson.length - 1].messageid)
     }
-    scrollToMessageId(messagesJson[messagesJson.length-1].messageid)
 }
 
 function sendMessage(text, chatid) {
@@ -340,7 +342,7 @@ function displayMessageByContent(jsonMessage, chatid) {
 
 }
 
-function scrollToMessageId(msgId){
+function scrollToMessageId(msgId) {
     var container = $('#chatcontent');
 
     var scrollTo = $("#" + msgId);
@@ -349,7 +351,7 @@ function scrollToMessageId(msgId){
         - container.offset().top
         + container.scrollTop();
 
-        container.animate({
-            scrollTop: position
-        });
+    container.animate({
+        scrollTop: position
+    });
 }

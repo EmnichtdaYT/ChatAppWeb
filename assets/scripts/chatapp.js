@@ -1,15 +1,14 @@
 var apiAddress = "https://easychatapi.emnichtda.de:3000/"
 var token = getCookie("token")
-var socket;
-$(document).ready(init);
+
+var socket = new WebSocket("wss://easychatapi.emnichtda.de:3000/");
+
+socket.onopen = function (e) {
+    console.log("Websocket opened!");
+    init();
+};
+
 function init() {
-
-    socket = new WebSocket("wss://easychatapi.emnichtda.de:3000/");
-
-    socket.onopen = function (e) {
-        console.log("Websocket opened!");
-        socket.send(token)
-    };
 
     socket.onmessage = function (event) {
         console.log(`Data from Websocket: ${event.data}`);
@@ -57,6 +56,7 @@ function init() {
             if (!tokenCorrect || jsonResponse.user != getCookie("user")) {
                 window.location.href = "/";
             } else {
+                socket.send(token)
                 initChatlist(jsonResponse)
             }
         } else if (this.readyState == 4) {

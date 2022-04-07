@@ -1,5 +1,8 @@
 var apiAddress = "https://easychatapi.emnichtda.de:3000/"
 $(document).ready(function () {
+
+    alert("PLEASE DONT USE YOUR REAL PASSWORD!!! - PASSWORDS ARE NOT ENCRYPTED YET")
+
     $("#btn_register").click(function () { register($("#in_user").val(), $("#in_pass").val(), $("#in_pass_repeat").val()) })
 
     var token = getCookie("token")

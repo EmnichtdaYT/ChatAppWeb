@@ -1,7 +1,50 @@
 var apiAddress = "https://easychatapi.emnichtda.de:3000/"
 var token = getCookie("token")
+var socket;
 init();
 function init() {
+
+    socket = new WebSocket("wss://easychatapi.emnichtda.de:3000/");
+
+    socket.onopen = function (e) {
+        console.log("Websocket opened!");
+        socket.send(token)
+    };
+
+    socket.onmessage = function (event) {
+        console.log(`Data from Websocket: ${event.data}`);
+        var jsonFromServer;
+        try {
+            jsonFromServer = JSON.parse(event.data)
+        } catch (e) {
+            alert("Websocket responded with non JSON answer: " + event.data)
+            return;
+        }
+        try {
+            if (jsonFromServer.message[0].chatid) {
+                console.log("Message is chatmessage")
+                displayMessageByContent(jsonFromServer.message[0], jsonFromServer.message[0].chatid);
+                scrollToMessageId(jsonFromServer.message[0].messageid)
+            }
+        } catch (e) {
+            console.log("Message is not a chatmessage")
+        }
+    };
+
+    socket.onclose = function (event) {
+        if (event.wasClean) {
+            console.log("Websocket connection closed!")
+        } else {
+            // e.g. server process killed or network down
+            // event.code is usually 1006 in this case
+            alert('Websocket connection died!');
+            logout()
+        }
+    };
+
+    socket.onerror = function (error) {
+        alert(`Websocket error: ${error.message}`);
+    };
 
     var request = new XMLHttpRequest();
     request.open("GET", apiAddress + token, true);
@@ -147,6 +190,8 @@ function initChatlist(json) {
         var users = json.chats[chat] + ""
         users = users.replaceAll(",", ", ")
         $("#chatlist").append('<li onClick="selectChat(this.id)" class="chatslistitem list-group-item text-white bg-dark" id="' + chat + '">' + users + '</li>');
+        console.log("Sending listening request to Websocket for chatid: " + chat)
+        socket.send(chat);
     }
 
     if (firstchat == null || selectedChat != null) {
@@ -221,7 +266,7 @@ function sendMessage(text, chatid) {
         return;
     }
 
-    if(!text||text.length<1){
+    if (!text || text.length < 1) {
         return;
     }
 
@@ -262,10 +307,10 @@ function sendMessage(text, chatid) {
             }
 
             if (messageid) {
-                displayMessageById(messageid, chatid)
                 $("#in_message").val("");
                 $("#in_message").removeAttr("disabled");
                 $("#btn_send_message").removeAttr("disabled");
+                //The WebSocket SHOULD recieve the message and display it automatically
             }
 
         }
@@ -338,12 +383,16 @@ function displayMessageByContent(jsonMessage, chatid) {
     var msgTimestampParsedToLocale = msgTimestampParsed.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' })
 
     if (msgSentBy == getCookie("user")) {
-        chatcontent.append('<article class="msg-container msg-self" id="' + msgId + '"><div class="msg-box">    <div class="flr">        <div class="messages">            <p class="msg">' + msgContent + '</p>        </div>        <span class="timestamp"><span class="username">' + msgSentBy + '</span>&bull;<span                class="posttime">' + msgTimestampParsedToLocale + '</span></span>    </div>    <img class="user-img"        src="//gravatar.com/avatar/56234674574535734573000000000001?d=retro" /> </div> </article>')
+        chatcontent.append('<article class="msg-container msg-self" id="' + msgId + '"><div class="msg-box">    <div class="flr">        <div class="messages">            <p class="msg">' + htmlEntities(msgContent) + '</p>        </div>        <span class="timestamp"><span class="username">' + msgSentBy + '</span>&bull;<span                class="posttime">' + msgTimestampParsedToLocale + '</span></span>    </div>    <img class="user-img"        src="//gravatar.com/avatar/56234674574535734573000000000001?d=retro" /> </div> </article>')
     } else {
-        chatcontent.append('<article class="msg-container msg-remote" id="' + msgId + '"><div class="msg-box">    <img class="user-img"        src="//gravatar.com/avatar/00034587632094500000000000000000?d=retro" />    <div class="flr">        <div class="messages">            <p class="msg">               ' + msgContent + '                   </p>        </div>        <span class="timestamp"><span class="username">' + msgSentBy + '</span>&bull;<span                class="posttime">' + msgTimestampParsedToLocale + '</span></span>    </div></div> </article>')
+        chatcontent.append('<article class="msg-container msg-remote" id="' + msgId + '"><div class="msg-box">    <img class="user-img"        src="//gravatar.com/avatar/00034587632094500000000000000000?d=retro" />    <div class="flr">        <div class="messages">            <p class="msg">               ' + htmlEntities(msgContent) + '                   </p>        </div>        <span class="timestamp"><span class="username">' + msgSentBy + '</span>&bull;<span                class="posttime">' + msgTimestampParsedToLocale + '</span></span>    </div></div> </article>')
     }
 
 
+}
+
+function htmlEntities(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
 function scrollToMessageId(msgId) {

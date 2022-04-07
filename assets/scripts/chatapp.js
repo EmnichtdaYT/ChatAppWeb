@@ -221,6 +221,10 @@ function sendMessage(text, chatid) {
         return;
     }
 
+    if(!text||text.length<1){
+        return;
+    }
+
     $("#in_message").attr('disabled', 'disabled');
     $("#btn_send_message").attr('disabled', 'disabled')
     $('#in_message').removeAttr('good');

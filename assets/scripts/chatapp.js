@@ -1,7 +1,7 @@
 var apiAddress = "https://easychatapi.emnichtda.de:3000/"
 var token = getCookie("token")
 var socket;
-init();
+$(document).ready(init);
 function init() {
 
     socket = new WebSocket("wss://easychatapi.emnichtda.de:3000/");

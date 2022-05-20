@@ -149,7 +149,7 @@ function createNewChat(usernames) {
             if (chatid) {
                 users = users.replaceAll(",", ", ")
                 $("#chatlist").append('<li onClick="selectChat(this.id)" class="chatslistitem list-group-item text-white bg-dark" id="' + chatid + '">' + users + '</li>');
-                console.log("Sending listening request to Websocket for chatid: " + chat)
+                console.log("Sending listening request to Websocket for chatid: " + chatid)
                 socket.send(chatid)
             }
 

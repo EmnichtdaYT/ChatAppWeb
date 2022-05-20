@@ -1,0 +1,4 @@
+{
+    "apiAddress": "https://easychatapi.emnichtda.de:3000/",
+    "websocketAddress": "wss://easychatapi.emnichtda.de:3000/"
+}

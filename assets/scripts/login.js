@@ -1,5 +1,11 @@
-var apiAddress = "https://easychatapi.emnichtda.de:3000/"
+var configJson
+$.getJSON("/config.json", function (data) {
+    configJson = data;
+});
+
+var apiAddress
 $(document).ready(function () {
+    apiAddress = configJson.apiAddress;
     $("#btn_login").click(function () { login($("#in_user").val(), $("#in_pass").val()) })
 
     var token = getCookie("token")
@@ -15,7 +21,7 @@ $(document).ready(function () {
             var tokenUsername = parsedResponse.user;
             if (tokenCorrect && tokenUsername === getCookie("user")) {
                 window.location.href = "/chatapp.html";
-            }else{
+            } else {
                 setCookie("token", null, -1)
                 setCookie("user", null, -1)
             }

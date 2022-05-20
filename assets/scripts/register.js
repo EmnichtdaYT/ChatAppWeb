@@ -1,5 +1,12 @@
-var apiAddress = "https://easychatapi.emnichtda.de:3000/"
+var configJson
+$.getJSON("/config.json", function (data) {
+    configJson = data;
+});
+
+var apiAddress
 $(document).ready(function () {
+
+    apiAddress = configJson.apiAddress;
 
     alert("PLEASE DONT USE YOUR REAL PASSWORD!!! - PASSWORDS ARE NOT ENCRYPTED YET")
 

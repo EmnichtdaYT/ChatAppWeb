@@ -1,10 +1,25 @@
+var readyForInit = false;
+
 var configJson
 $.getJSON("/config.json", function (data) {
     configJson = data;
+    if(readyForInit){
+        init();
+    }else{
+        readyForInit = true;
+    }
 });
 
 var apiAddress
 $(document).ready(function () {
+    if(readyForInit){
+        init();
+    }else{
+        readyForInit = true;
+    }
+});
+
+function init(){
     apiAddress = configJson.apiAddress;
     $("#btn_login").click(function () { login($("#in_user").val(), $("#in_pass").val()) })
 
@@ -35,7 +50,7 @@ $(document).ready(function () {
     }
 
     request.send();
-});
+}
 
 function login(user, pass) {
     var request = new XMLHttpRequest();
